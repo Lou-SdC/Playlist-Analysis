@@ -16,8 +16,8 @@ csv_raw = pd.read_csv('des_sons_et_des_gens.csv')
 #Copy the dataframe, get the columns names and drop the ones we don't care about
 csv = copy.deepcopy(csv_raw)
 columns = csv.columns
-csv = csv.drop(["URI du titre", "URI(s) de l'artiste", "URI de l'album", "URI(s) de l'artiste de l'album", 
-          "Nom(s) de l'artiste de l'album", "Date de sortie de l'album", "URL de l'image de l'album", 
+csv = csv.drop(["URI du titre", "URI(s) de l'artiste", "URI de l'album", "URI(s) de l'artiste de l'album",
+          "Nom(s) de l'artiste de l'album", "Date de sortie de l'album", "URL de l'image de l'album",
           'Numéro de disque', 'Numéro du titre', 'URL de prévisualisation du titre', 'Explicite', 'Popularité', 'ISRC',
           'Ajouté par', 'Ajouté le'], axis=1)
 
@@ -32,30 +32,13 @@ csv.columns = ['Nom', 'Artiste(s)', 'Album', 'Durée (ms)', 'Personne(s)']
 
 for i in range(len(csv)):
     if csv['Personne(s)'][i] == 0.0:
-        print('le titre de la chanson est ' + csv['Nom'][i] + 'de ' + csv["Artiste(s)"][i])
-        csv['Personne(s)'][i] = input('personne(s) ?')
-        
+        print('le titre de la chanson est ' + csv.loc[i, 'Nom'] + ', de ' + csv.loc[i, "Artiste(s)"])
+        csv.loc[i, 'Personne(s)'] = input('personne(s) ?')
 
 
-#%% 
+
+#%%
 
 #Save the new dataframe in a .csv file
 
 csv.to_csv('des_sons_et_des_gens_MotsClefs.csv', index=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
